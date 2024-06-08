@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace VotingAppAPI.Migrations
+namespace VotingApp.Persistence.Migrations
 {
     /// <inheritdoc />
     public partial class InitialCreate : Migration
@@ -37,20 +37,6 @@ namespace VotingAppAPI.Migrations
                 {
                     table.PrimaryKey("PK_Voters", x => x.Id);
                 });
-
-            migrationBuilder.CreateTable(
-                name: "Votes",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    VoterId = table.Column<int>(type: "int", nullable: false),
-                    CandidateId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Votes", x => x.Id);
-                });
         }
 
         /// <inheritdoc />
@@ -61,9 +47,6 @@ namespace VotingAppAPI.Migrations
 
             migrationBuilder.DropTable(
                 name: "Voters");
-
-            migrationBuilder.DropTable(
-                name: "Votes");
         }
     }
 }

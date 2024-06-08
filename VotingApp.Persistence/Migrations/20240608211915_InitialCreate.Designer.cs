@@ -4,14 +4,14 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using VotingAppAPI.Data;
+using VotingApp.Persistence;
 
 #nullable disable
 
-namespace VotingAppAPI.Migrations
+namespace VotingApp.Persistence.Migrations
 {
     [DbContext(typeof(VotingContext))]
-    [Migration("20240603193027_InitialCreate")]
+    [Migration("20240608211915_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -24,7 +24,7 @@ namespace VotingAppAPI.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("VotingAppAPI.Models.Candidate", b =>
+            modelBuilder.Entity("VotingApp.Domain.Entities.Candidate", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -44,26 +44,7 @@ namespace VotingAppAPI.Migrations
                     b.ToTable("Candidates");
                 });
 
-            modelBuilder.Entity("VotingAppAPI.Models.Vote", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("CandidateId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("VoterId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Votes");
-                });
-
-            modelBuilder.Entity("VotingAppAPI.Models.Voter", b =>
+            modelBuilder.Entity("VotingApp.Domain.Entities.Voter", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()

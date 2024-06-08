@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using VotingAppAPI.Interfaces;
-using VotingAppAPI.Models;
+﻿using MediatR;
+using Microsoft.AspNetCore.Mvc;
+using VotingApp.Application.Candidates.Command;
+using VotingApp.Application.Candidates.Queries;
+using VotingApp.Domain.Entities;
 
 namespace VotingAppAPI.Controllers
 {
@@ -8,40 +10,42 @@ namespace VotingAppAPI.Controllers
     [ApiController]
     public class CandidatesController : ControllerBase
     {
-        private readonly ICandidates _candidatesService;
+        private readonly IMediator _mediator;
 
-        public CandidatesController(ICandidates candidatesService)
+        public CandidatesController(IMediator mediator)
         {
-            _candidatesService = candidatesService;
+            _mediator = mediator;
         }
 
         [HttpGet("getcandidateslist")]
         public async Task<ActionResult<IEnumerable<Candidate>>> GetCandidates()
         {
-            var list = await _candidatesService.GetCandidates();
-            return Ok(list);
+            var candidates = await _mediator.Send(new GetCandidatesQuery());
+            return Ok(candidates);
         }
 
         [HttpPost("addcandidates")]
-        public async Task<ActionResult<Candidate>> Save(Candidate candidate)
+        public async Task<ActionResult<int>> Save(CreateCandidateCommand command)
         {
-            var createdCandidate = await _candidatesService.AddCandidate(candidate);
-            return CreatedAtAction(nameof(GetCandidates), new { id = createdCandidate.Id }, createdCandidate);
+            var candidateId = await _mediator.Send(command);
+            return Ok(candidateId);
         }
 
         [HttpPut("updateCandidate/{id}")]
-        public async Task<IActionResult> UpdateCandidate(int id, Candidate candidate)
+        public async Task<IActionResult> UpdateCandidate(int id, [FromBody] Candidate candidate)
         {
             if (id != candidate.Id)
             {
                 return BadRequest();
             }
 
-            var updatedCandidate = await _candidatesService.UpdateCandidate(id, candidate);
-            if (updatedCandidate == null)
+            var command = new CreateCandidateCommand
             {
-                return BadRequest();
-            }
+                Name = candidate.Name
+            };
+
+            await _mediator.Send(command);
+
 
             return NoContent();
 

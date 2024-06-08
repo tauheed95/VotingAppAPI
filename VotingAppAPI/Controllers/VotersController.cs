@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using VotingAppAPI.Interfaces;
-using VotingAppAPI.Models;
+﻿using MediatR;
+using Microsoft.AspNetCore.Mvc;
+using VotingApp.Application.Voters.Commands;
+using VotingApp.Application.Voters.Queries;
+using VotingApp.Domain.Entities;
 
 namespace VotingAppAPI.Controllers
 {
@@ -8,40 +10,42 @@ namespace VotingAppAPI.Controllers
     [ApiController]
     public class VotersController : ControllerBase
     {
-        private readonly IVoters _votersService;
-        public VotersController(IVoters votersService)
+        private readonly IMediator _mediator;
+        public VotersController(IMediator mediator)
         {
-            _votersService = votersService;
+            _mediator = mediator;
         }
 
         [HttpGet("getvoterslist")]
         public async Task<ActionResult<IEnumerable<Voter>>> GetVoters()
         {
-            var list = await _votersService.GetVoters();
-            return Ok(list);
+            var voters = await _mediator.Send(new GetVotersQuery());
+            return Ok(voters);
 
         }
 
         [HttpPost("addvoters")]
-        public async Task<ActionResult<Voter>> Save(Voter voter)
+        public async Task<ActionResult<int>> Save(CreateVoterCommand command)
         {
-            var createdVoter = await _votersService.AddVoter(voter);
-            return CreatedAtAction(nameof(GetVoters), new { id = createdVoter.Id }, createdVoter);
+            var voterId = await _mediator.Send(command);
+            return Ok(voterId);
         }
 
         [HttpPut("updateVoter/{id}")]
-        public async Task<IActionResult> UpdateVoter(int id, Voter voter)
+        public async Task<IActionResult> UpdateVoter(int id, [FromBody] Voter voter)
         {
             if (id != voter.Id)
             {
                 return BadRequest();
             }
 
-            var updatedVoter = await _votersService.UpdateVoter(id, voter);
-            if (updatedVoter == null)
+            var command = new CreateVoterCommand
             {
-                return BadRequest();
-            }
+                Name = voter.Name
+            };
+
+            await _mediator.Send(command);
+
             return NoContent();
         }
 

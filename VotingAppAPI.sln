@@ -5,7 +5,15 @@ VisualStudioVersion = 17.8.34525.116
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VotingAppAPI", "VotingAppAPI\VotingAppAPI.csproj", "{0C2434DF-C2FE-4839-AC82-166252FABFAA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VotingApp.Tests", "VotingApp.Tests\VotingApp.Tests.csproj", "{E9F5CCAB-7578-4168-9CA3-24530F24F9FE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VotingApp.Application", "VotingApp.Application\VotingApp.Application.csproj", "{8CF1F25D-63F0-4CD6-991D-D99C37408A29}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VotingApp.Domain", "VotingApp.Domain\VotingApp.Domain.csproj", "{F1A29065-0D2E-4C96-BDE5-F53E9BB5CD09}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VotingApp.Infrastructure", "VotingApp.Infrastructure\VotingApp.Infrastructure.csproj", "{AC91E78A-231B-4443-BE8D-0D2365582C30}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VotingApp.Persistence", "VotingApp.Persistence\VotingApp.Persistence.csproj", "{E37C761C-DB92-498B-B2FA-82CB0F1AA306}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VotingApp.Application.Tests", "VotingApp.Application.Tests\VotingApp.Application.Tests.csproj", "{3178975B-57B3-4394-9C50-76F4014F9701}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +25,26 @@ Global
 		{0C2434DF-C2FE-4839-AC82-166252FABFAA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0C2434DF-C2FE-4839-AC82-166252FABFAA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0C2434DF-C2FE-4839-AC82-166252FABFAA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E9F5CCAB-7578-4168-9CA3-24530F24F9FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E9F5CCAB-7578-4168-9CA3-24530F24F9FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E9F5CCAB-7578-4168-9CA3-24530F24F9FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E9F5CCAB-7578-4168-9CA3-24530F24F9FE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8CF1F25D-63F0-4CD6-991D-D99C37408A29}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8CF1F25D-63F0-4CD6-991D-D99C37408A29}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8CF1F25D-63F0-4CD6-991D-D99C37408A29}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8CF1F25D-63F0-4CD6-991D-D99C37408A29}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F1A29065-0D2E-4C96-BDE5-F53E9BB5CD09}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1A29065-0D2E-4C96-BDE5-F53E9BB5CD09}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F1A29065-0D2E-4C96-BDE5-F53E9BB5CD09}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1A29065-0D2E-4C96-BDE5-F53E9BB5CD09}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AC91E78A-231B-4443-BE8D-0D2365582C30}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC91E78A-231B-4443-BE8D-0D2365582C30}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AC91E78A-231B-4443-BE8D-0D2365582C30}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AC91E78A-231B-4443-BE8D-0D2365582C30}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E37C761C-DB92-498B-B2FA-82CB0F1AA306}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E37C761C-DB92-498B-B2FA-82CB0F1AA306}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E37C761C-DB92-498B-B2FA-82CB0F1AA306}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E37C761C-DB92-498B-B2FA-82CB0F1AA306}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3178975B-57B3-4394-9C50-76F4014F9701}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3178975B-57B3-4394-9C50-76F4014F9701}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3178975B-57B3-4394-9C50-76F4014F9701}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3178975B-57B3-4394-9C50-76F4014F9701}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

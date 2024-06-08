@@ -10,7 +10,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="8.0.6" />
+    <PackageReference Include="MediatR" Version="12.3.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="8.0.6" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.6.0" />
     <PackageReference Include="Moq" Version="4.20.70" />
@@ -26,7 +26,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\VotingAppAPI\VotingAppAPI.csproj" />
+    <ProjectReference Include="..\VotingApp.Application\VotingApp.Application.csproj" />
+    <ProjectReference Include="..\VotingApp.Domain\VotingApp.Domain.csproj" />
   </ItemGroup>
 
 </Project>

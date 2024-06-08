@@ -1,7 +1,8 @@
+using MediatR;
 using Microsoft.EntityFrameworkCore;
-using VotingAppAPI.Data;
-using VotingAppAPI.Interfaces;
-using VotingAppAPI.Services;
+using System.Reflection;
+using VotingApp.Persistence;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +10,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<VotingContext>(options =>
         options.UseSqlServer("Server=DESKTOP-U7C94O7\\SQLEXPRESS;Database=VotingAppDb;Trusted_Connection=True;MultipleActiveResultSets=true;TrustServerCertificate=True"));
+builder.Services.AddMediatR(Assembly.GetExecutingAssembly());
+builder.Services.AddMediatR(typeof(VotingApp.Application.Voters.Commands.CreateVoterCommand).Assembly);
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAngularApp", 
@@ -18,8 +21,6 @@ builder.Services.AddCors(options =>
         .AllowAnyHeader());
 });
 
-builder.Services.AddScoped<IVoters, VotersService>();
-builder.Services.AddScoped<ICandidates, CandidatesService>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
