@@ -30,25 +30,6 @@ namespace VotingAppAPI.Controllers
             var candidateId = await _mediator.Send(command);
             return Ok(candidateId);
         }
-
-        [HttpPut("updateCandidate/{id}")]
-        public async Task<IActionResult> UpdateCandidate(int id, [FromBody] Candidate candidate)
-        {
-            if (id != candidate.Id)
-            {
-                return BadRequest();
-            }
-
-            var command = new CreateCandidateCommand
-            {
-                Name = candidate.Name
-            };
-
-            await _mediator.Send(command);
-
-
-            return NoContent();
-
-        }
+      
     }
 }
