@@ -1,6 +1,7 @@
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
+using VotingApp.Application.Common.Mappings;
 using VotingApp.Persistence;
 
 
@@ -12,6 +13,7 @@ builder.Services.AddDbContext<VotingContext>(options =>
         options.UseSqlServer("Server=DESKTOP-U7C94O7\\SQLEXPRESS;Database=VotingAppDb;Trusted_Connection=True;MultipleActiveResultSets=true;TrustServerCertificate=True"));
 builder.Services.AddMediatR(Assembly.GetExecutingAssembly());
 builder.Services.AddMediatR(typeof(VotingApp.Application.Voters.Commands.CreateVoterCommand).Assembly);
+builder.Services.AddAutoMapper(typeof(MappingProfile).Assembly);
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAngularApp", 

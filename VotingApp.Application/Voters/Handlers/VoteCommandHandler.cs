@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,17 +21,19 @@ namespace VotingApp.Application.Voters.Handlers
 
         public async Task<bool> Handle(VoteCommand request, CancellationToken cancellationToken)
         {
-            var voter = await _context.Voters.FindAsync(request.VoterId);
-            if (voter == null || voter.HasVoted)
+            var voter = await _context.Voters.FirstOrDefaultAsync(v => v.Id == request.VoterId, cancellationToken);
+            var candidate = await _context.Candidates.FirstOrDefaultAsync(c => c.Id == request.CandidateId, cancellationToken);
+
+            if (voter == null || candidate == null)
             {
-                return false; // Voter either doesn't exist or has already voted
+                throw new Exception("Invalid voter or candidate.");
             }
 
-            var candidate = await _context.Candidates.FindAsync(request.CandidateId);
-            if (candidate == null)
+            if (voter.HasVoted)
             {
-                return false; // Candidate doesn't exist
+                throw new Exception("Voter has already voted.");
             }
+
 
             voter.HasVoted = true;
             candidate.Votes++;

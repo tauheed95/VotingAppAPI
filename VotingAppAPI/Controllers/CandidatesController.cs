@@ -18,7 +18,7 @@ namespace VotingAppAPI.Controllers
         }
 
         [HttpGet("getcandidateslist")]
-        public async Task<ActionResult<IEnumerable<Candidate>>> GetCandidates()
+        public async Task<ActionResult<IEnumerable<CandidateDto>>> GetCandidates()
         {
             var candidates = await _mediator.Send(new GetCandidatesQuery());
             return Ok(candidates);

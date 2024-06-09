@@ -3,7 +3,7 @@ using VotingApp.Domain.Entities;
 
 namespace VotingApp.Application.Voters.Queries
 {
-    public class GetVotersQuery : IRequest<List<Voter>>
+    public class GetVotersQuery : IRequest<List<VoterDto>>
     {
     }
 }

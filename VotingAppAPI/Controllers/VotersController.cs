@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using VotingApp.Application.Voters.Commands;
 using VotingApp.Application.Voters.Queries;
-using VotingApp.Domain.Entities;
 
 namespace VotingAppAPI.Controllers
 {
@@ -17,7 +16,7 @@ namespace VotingAppAPI.Controllers
         }
 
         [HttpGet("getvoterslist")]
-        public async Task<ActionResult<IEnumerable<Voter>>> GetVoters()
+        public async Task<ActionResult<IEnumerable<VoterDto>>> GetVoters()
         {
             var voters = await _mediator.Send(new GetVotersQuery());
             return Ok(voters);

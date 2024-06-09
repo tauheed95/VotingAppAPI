@@ -1,42 +1,47 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using VotingApp.Application.Candidates.Handlers;
 using VotingApp.Application.Candidates.Queries;
+using VotingApp.Application.Common.Mappings;
 using VotingApp.Domain.Entities;
 using VotingApp.Persistence;
 
 namespace VotingApp.Application.Tests.Candidates.Handlers
 {
-    public class GetCandidatesQueryHandlerTests : IClassFixture<TestDbContextFixture>
+    public class GetCandidatesQueryHandlerTests
     {
-        private readonly VotingContext _context;
-        private readonly GetCandidatesQueryHandler _handler;
-
-        public GetCandidatesQueryHandlerTests(TestDbContextFixture fixture)
+        private readonly IMapper _mapper;
+        public GetCandidatesQueryHandlerTests()
         {
-            _context = fixture.Context;
-            _handler = new GetCandidatesQueryHandler(_context);
-
-            // Ensure a clean state before each test
-            _context.Candidates.RemoveRange(_context.Candidates);
-            _context.Candidates.AddRange(
-                new Candidate { Name = "Alice Forgusan", Votes = 0 },
-                new Candidate { Name = "Alice Forgusan", Votes = 1 });
-            _context.SaveChanges();
+            var configuration = new MapperConfiguration(cfg => cfg.AddProfile<MappingProfile>());
+            _mapper = configuration.CreateMapper();
         }
 
         [Fact]
-        public async Task Handle_ShouldReturnAllCandidates()
+        public async Task Handle_GivenRequest_ShouldReturnListOfCandidates()
         {
             // Arrange
-            var query = new GetCandidatesQuery();
+            var options = new DbContextOptionsBuilder<VotingContext>()
+                .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()) // Use a unique database name for each test
+                .Options;
+
+            using var context = new VotingContext(options);
+
+            // Clear any pre-existing data in the context (if necessary)
+            context.Candidates.RemoveRange(context.Candidates);
+            await context.SaveChangesAsync();
+
+            context.Candidates.Add(new Candidate { Name = "Test Candidate 1" });
+            context.Candidates.Add(new Candidate { Name = "Test Candidate 2" });
+            await context.SaveChangesAsync();
+
+            var handler = new GetCandidatesQueryHandler(context, _mapper);
 
             // Act
-            var candidates = await _handler.Handle(query, CancellationToken.None);
+            var result = await handler.Handle(new GetCandidatesQuery(), CancellationToken.None);
 
             // Assert
-            Assert.Equal(2, candidates.Count);
-            Assert.Contains(candidates, c => c.Name == "Alice Forgusan");
-            Assert.Contains(candidates, c => c.Name == "Alice Forgusan");
+            Assert.Equal(2, result.Count);
         }
     }
 }

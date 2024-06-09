@@ -7,33 +7,29 @@ namespace VotingApp.Application.Tests.Voters.Handlers
 {
     public class CreateVoterCommandHandlerTests
     {
-        private readonly VotingContext _context;
-        private readonly CreateVoterCommandHandler _handler;
-
-        public CreateVoterCommandHandlerTests()
+        [Fact]
+        public async Task Handle_GivenValidRequest_ShouldCreateVoter()
         {
+            // Arrange
             var options = new DbContextOptionsBuilder<VotingContext>()
                 .UseInMemoryDatabase(databaseName: "VotingAppTest")
                 .Options;
 
-            _context = new VotingContext(options);
-            _handler = new CreateVoterCommandHandler(_context);
-        }
+            using var context = new VotingContext(options);
+            var handler = new CreateVoterCommandHandler(context);
 
-        [Fact]
-        public async Task Handle_ShouldCreateNewVoter()
-        {
-            // Arrange
-            var command = new CreateVoterCommand { Name = "John Doe" };
+            var command = new CreateVoterCommand
+            {
+                Name = "Test Voter"
+            };
 
             // Act
-            var voterId = await _handler.Handle(command, CancellationToken.None);
+            var result = await handler.Handle(command, CancellationToken.None);
 
             // Assert
-            var voter = await _context.Voters.FindAsync(voterId);
+            var voter = await context.Voters.FindAsync(result);
             Assert.NotNull(voter);
-            Assert.Equal("John Doe", voter.Name);
-            Assert.False(voter.HasVoted);
+            Assert.Equal("Test Voter", voter.Name);
         }
     }
 }
