@@ -1,11 +1,15 @@
-﻿using MediatR;
+﻿#region Using Directives
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using VotingApp.Application.Candidates.Command;
 using VotingApp.Application.Candidates.Queries;
-using VotingApp.Domain.Entities;
+#endregion
 
 namespace VotingAppAPI.Controllers
 {
+    /// <summary>
+    /// Controller for managing candidates.
+    /// </summary>
     [Route("api/[controller]")]
     [ApiController]
     public class CandidatesController : ControllerBase
@@ -17,6 +21,10 @@ namespace VotingAppAPI.Controllers
             _mediator = mediator;
         }
 
+        /// <summary>
+        /// Gets the list of all candidates.
+        /// </summary>
+        /// <returns>List of candidates.</returns>
         [HttpGet("getcandidateslist")]
         public async Task<ActionResult<IEnumerable<CandidateDto>>> GetCandidates()
         {
@@ -24,6 +32,11 @@ namespace VotingAppAPI.Controllers
             return Ok(candidates);
         }
 
+        /// <summary>
+        /// Creates a new candidate.
+        /// </summary>
+        /// <param name="command">The create candidate command.</param>
+        /// <returns>The ID of the created candidate.</returns>
         [HttpPost("addcandidates")]
         public async Task<ActionResult<int>> Save(CreateCandidateCommand command)
         {

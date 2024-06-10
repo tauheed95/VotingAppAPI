@@ -1,5 +1,8 @@
 ﻿namespace VotingApp.Application.Voters.Queries
 {
+    /// <summary>
+    /// Data Transfer Object for Voter.
+    /// </summary>
     public class VoterDto
     {
         public int Id { get; set; }

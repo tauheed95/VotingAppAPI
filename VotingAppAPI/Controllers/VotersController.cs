@@ -1,10 +1,15 @@
-﻿using MediatR;
+﻿#region Using Directives
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using VotingApp.Application.Voters.Commands;
 using VotingApp.Application.Voters.Queries;
+#endregion
 
 namespace VotingAppAPI.Controllers
 {
+    /// <summary>
+    /// Controller for managing voters.
+    /// </summary>
     [Route("api/[controller]")]
     [ApiController]
     public class VotersController : ControllerBase
@@ -15,6 +20,10 @@ namespace VotingAppAPI.Controllers
             _mediator = mediator;
         }
 
+        /// <summary>
+        /// Gets the list of all voters.
+        /// </summary>
+        /// <returns>List of voters.</returns>
         [HttpGet("getvoterslist")]
         public async Task<ActionResult<IEnumerable<VoterDto>>> GetVoters()
         {
@@ -23,6 +32,11 @@ namespace VotingAppAPI.Controllers
 
         }
 
+        /// <summary>
+        /// Creates a new voter.
+        /// </summary>
+        /// <param name="command">The create voter command.</param>
+        /// <returns>The ID of the created voter.</returns>
         [HttpPost("addvoters")]
         public async Task<ActionResult<int>> Save(CreateVoterCommand command)
         {

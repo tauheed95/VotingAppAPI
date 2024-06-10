@@ -1,13 +1,17 @@
-﻿using AutoMapper;
+﻿#region Using Directives
+using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using VotingApp.Application.Voters.Queries;
-using VotingApp.Domain.Entities;
 using VotingApp.Persistence;
+#endregion
 
 namespace VotingApp.Application.Voters.Handlers
 {
+    /// <summary>
+    /// Handles the query to get a list of all voters.
+    /// </summary>
     public class GetVotersQueryHandler : IRequestHandler<GetVotersQuery, List<VoterDto>>
     {
         private readonly VotingContext _context;

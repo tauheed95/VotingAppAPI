@@ -1,10 +1,15 @@
-﻿using MediatR;
+﻿#region Using Directives
+using MediatR;
 using VotingApp.Application.Candidates.Command;
 using VotingApp.Domain.Entities;
 using VotingApp.Persistence;
+#endregion
 
 namespace VotingApp.Application.Candidates.Handlers
 {
+    /// <summary>
+    /// Handles the creation of a new candidate.
+    /// </summary>
     public class CreateCandidateCommandHandler : IRequestHandler<CreateCandidateCommand, int>
     {
         private readonly VotingContext _context;

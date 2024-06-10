@@ -1,9 +1,10 @@
+#region Using Directives
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 using VotingApp.Application.Common.Mappings;
 using VotingApp.Persistence;
-
+#endregion
 
 var builder = WebApplication.CreateBuilder(args);
 

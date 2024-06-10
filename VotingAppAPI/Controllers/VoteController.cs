@@ -1,9 +1,14 @@
-﻿using MediatR;
+﻿#region Using Directives
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using VotingApp.Application.Voters.Commands;
+#endregion
 
 namespace VotingAppAPI.Controllers
 {
+    /// <summary>
+    /// Controller for managing vote casting.
+    /// </summary>
     [Route("api/[controller]")]
     [ApiController]
     public class VoteController : ControllerBase
@@ -14,6 +19,12 @@ namespace VotingAppAPI.Controllers
         {
             _mediator = mediator;
         }
+
+        /// <summary>
+        /// Casts a vote for a candidate.
+        /// </summary>
+        /// <param name="command">The vote command.</param>
+        /// <returns>HTTP status.</returns>
 
         [HttpPost]
         public async Task<IActionResult> Vote(int voterId, int candidateId)

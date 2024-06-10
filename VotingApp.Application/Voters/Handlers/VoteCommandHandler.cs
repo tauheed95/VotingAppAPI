@@ -1,15 +1,15 @@
-﻿using MediatR;
+﻿#region Using Directives
+using MediatR;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using VotingApp.Application.Voters.Commands;
 using VotingApp.Persistence;
+#endregion
 
 namespace VotingApp.Application.Voters.Handlers
 {
+    /// <summary>
+    /// Handles the command to cast a vote for a candidate.
+    /// </summary>
     public class VoteCommandHandler : IRequestHandler<VoteCommand, bool>
     {
         private readonly VotingContext _context;
